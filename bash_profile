@@ -1,3 +1,7 @@
+# Bindings
+bind "set completion-ignore-case on"
+bind "set show-all-if-ambiguous on"
+
 # Colors and formatting
 ESC=$(printf "\e")
 BOLD=`tput bold`
@@ -40,7 +44,7 @@ function print_path {
 	# Non-Git directory
 	else
 		path=${path/$HOME/\~}
-		echo "${BRORANGE}$path${RESET}"
+		echo "$path${RESET}"
 	fi
 }
 
@@ -49,6 +53,7 @@ function print_time {
 }
 
 export PS1='$(print_time) $(print_path)${RESET} 🐶  '
+# $ export PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\H> \[\e[0m\]"
 
 export PATH=$PATH:~/devtools/arcanist/bin
 
@@ -73,13 +78,16 @@ alias rmf='rm -rf'
 alias c='clear'
 alias prof='s ~/.bash_profile'
 alias src='source ~/.bash_profile'
+alias o='open .'
 
 # Git
+source ~/.git-completion.bash
+
 alias gs='git status -uno'
 alias ga='git add'
 alias gaa='git add --all'
 alias gc='git commit -m'
-alias gp='git pull --rebase'
+alias gp='git pull --rebase origin master'
 alias grc='git rebase --continue'
 alias gpp='git push'
 alias gl='git log --decorate --oneline'
@@ -90,7 +98,11 @@ alias gco="git checkout "
 alias gst="git stash"
 alias gsr="git stash --keep-index"
 alias gsp="git stash pop"
+alias gundo="git reset HEAD~"
+
 alias gd="git diff"
+alias gdd='git diff > ~/code/.diff; s ~/code/.diff'
+
 alias gg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit"
 alias gssp='git stash show -p'
 
